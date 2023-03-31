@@ -1,0 +1,76 @@
+{% extends 'layout.html' %}
+{% load crispy_forms_tags %}
+
+{% block style %}
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 80%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+h2 {
+  text-align: center;
+}
+
+
+</style>
+
+
+  {% endblock %}
+{% block title %}
+Student Details    
+{% endblock %}
+
+{% block content %}
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<h2>Student Attendance Details</h2><br>
+
+  <table>
+    <tr>
+      <th>Student class</th>
+      <th>Name</th>
+      <th>Date</th>
+      <th>Attendance</th>
+    </tr>
+    {% for field in attendancedata %}
+      <tr>
+        
+        <td>{{ field.student_class }}</td>
+        <td>{{ field.student_name }}</td>
+        <td>{{ field.attendance }}</td>
+        <td>{{ field.date }}</td>
+        <td><a href="{% url 'attendance:editattendance' student_id=field.id %}" class="btn btn-primary">EDIT</a><p style="display:none;">{{ field.id}}</p></td>
+        <td><a href="{% url 'attendance:deleteattendance' student_id=field.id %}" class="btn btn-danger" onclick="return confirm('Do you want to delete?')">DELETE</a></td>
+       
+        
+      </tr> 
+    {% endfor %}
+    
+  </table>
+  
+  
+
+{% endblock %}
+
+
+
+       
+

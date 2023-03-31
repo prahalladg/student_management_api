@@ -1,0 +1,76 @@
+{% extends 'layout.html' %}
+
+
+{% block style %}
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 80%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+
+</style>
+  {% endblock %}
+{% block title %}
+Student Details    
+{% endblock %}
+
+{% block content %}
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<table>
+    <tr>
+      <th>Student ID</th>
+      <th>Name</th>
+      <th>Student class</th>
+      <th>Email</th>
+      <th>Contact number</th>
+      <th>DOB</th>
+      <th>Father name</th>
+      <th>Mother name</th>
+      <th>Gender</th>
+      <th>Address</th>
+    </tr>
+    {% for field in studentdata %}
+      <tr>
+        <td>{{ field.student_id }}</td>
+        <td>{{ field.name }}</td>
+        <td>{{ field.std_class}}</td>
+        <td>{{ field.email }}</td>
+        <td>{{ field.contact_number }}</td>
+        <td>{{ field.dob }}</td>
+        <td>{{ field.father_name }}</td>
+        <td>{{ field.mother_name }}</td>
+        <td>{{ field.gender }}</td>
+        <td>{{ field.address }}</td>
+        <td><a href="{% url 'student:editstudent' student_id=field.id %}" class="btn btn-primary">EDIT</a><p style="display:none;">{{ field.id}}</p></td>
+        <td><a href="{% url 'student:deletestudent' student_id=field.id %}" class="btn btn-danger" onclick="return confirm('Do you want to delete?')">DELETE</a></td>
+      </tr>
+    {% endfor %}
+  </table>
+
+
+{% endblock %}
+
+
+
+       
+

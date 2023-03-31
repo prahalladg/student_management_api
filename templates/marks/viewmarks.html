@@ -1,0 +1,76 @@
+{% extends 'layout.html' %}
+
+
+{% block style %}
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 80%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+.heading {
+    align-items: center;
+}
+
+</style>
+  {% endblock %}
+{% block title %}
+Student Details    
+{% endblock %}
+
+{% block content %}
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+<h2 class="heading">Student Marks </h2>
+<table>
+    <tr>
+      <th>student Name</th>
+      <th>Hindi</th>
+      <th>English</th>
+      <th>Math</th>
+      <th>Science</th>
+      <th>SST</th>
+      <th>Total</th>
+      <th>Percentage</th>
+    </tr>
+    {% for field in marksdata %}
+      <tr>
+        <td>{{ field.student_name }}</td>
+        <td>{{ field.hindi }}</td>
+        <td>{{ field.english}}</td>
+        <td>{{ field.math }}</td>
+        <td>{{ field.science }}</td>
+        <td>{{ field.sst }}</td>
+        <td>{{ field.total }}</td>
+        <td>{{ field.percentage }}</td>
+        <td><a href="{% url 'marks:editmarks' student_id=field.id %}" class="btn btn-primary">EDIT</a></td>
+        <td><a href="{% url 'marks:deletemarks' student_id=field.id %}" class="btn btn-danger" onclick="return confirm('Do you want to delete?')">DELETE</a></td>
+        
+      </tr>
+    {% endfor %}
+  </table>
+
+
+{% endblock %}
+
+
+
+       
+

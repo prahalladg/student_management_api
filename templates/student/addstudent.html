@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Student Details    
+{% endblock %}
+
+{% block content %}
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<!-- <div class="text-center"><button class="btn btn-success" type="submit">ADD new student</button></div> -->
+<div class="justify-content-center" style="margin-top: 96px;display: flex; align-items: center; margin-top: 52px;
+">
+
+    <form action="" method="POST" style="width: 400px; align-items: center;">
+      <h2>Register New Student</h2><br>
+      {% csrf_token %}
+      {{ add|crispy }}                    
+    <button class="btn btn-primary" type="submit">Add student</button>
+    </form>
+  </div>
+
+
+{% endblock %}
+
+
+
+       

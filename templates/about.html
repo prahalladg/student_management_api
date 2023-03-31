@@ -1,0 +1,47 @@
+
+{% extends 'layout.html' %}
+
+{% block title %}
+   about     
+{% endblock %}
+
+{% block content %}
+{% load static %}
+<section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
+
+      <div class="d-flex justify-content-between align-items-center">
+        <h2>About Us</h2>
+        <ol>
+          <li><a href="{% url 'home'%}">Home</a></li>
+          <li>About Us </li>
+        </ol>
+      </div>
+
+    </div>
+  </section><!-- End Breadcrumbs -->
+ <!-- ======= About Us Section ======= -->
+ <section id="about-us" class="about-us">
+    <div class="container" data-aos="fade-up">
+
+      <div class="section-title">
+        <br><br>
+        <h2>About Us</strong></h2>
+      </div>
+      {% for abt in about %}
+      <div class="row content">
+        <div class="col-lg-6" data-aos="fade-right">
+          <h2>{{ abt.title}}</h2>
+          <img src="{{ abt.Image.url }}" alt="" style="height: 200px; width: 400px;">
+        </div>
+        <div class="col-lg-6 pt-4 pt-lg-0" data-aos="fade-left">
+          <p>
+              {{ abt.description }}
+          </p>
+        </div>
+        {% endfor %}
+      </div>
+
+    </div>
+  </section><!-- End About Us Section -->
+{% endblock %}

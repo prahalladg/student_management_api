@@ -1,0 +1,126 @@
+{% extends 'layout.html' %}
+{% load crispy_forms_tags %}
+
+{% block style %}
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 80%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+
+</style>
+
+
+  {% endblock %}
+{% block title %}
+Student Details    
+{% endblock %}
+
+{% block content %}
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+<div class="justify-content-center" style="margin-top: 96px;display: flex; align-items: center; margin-top: 52px;
+">
+
+    <form action="" method="POST" id="attendanceForm" data-url={% url 'attendance:addAttendance'%} style="width: 400px; align-items: center;">
+      
+      <h2>Attendance Details</h2><br>
+      {% csrf_token %}
+      {{ attendance_details|crispy }} 
+    <button class="btn btn-primary" type="submit">ADD  ATTENDANCE</button>
+    </form>
+  </div>
+
+
+  <script>
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    const csrftoken = getCookie('csrftoken');
+
+
+    let std_class_field = document.getElementById("id_student_class")
+    let name_field = document.getElementById("id_student_name")
+    
+    std_class_field.addEventListener("change", getname)
+    function getname(e){
+        class_id = e.target.value
+        console.log(class_id)
+        const data = { id: class_id}
+        let url = " {% url 'attendance:load_names' %} "
+
+fetch(url, {
+method: 'POST',
+headers: {
+'Content-Type': 'application/json',
+'X-CSRFToken': csrftoken
+},
+body: JSON.stringify(data),
+})
+.then(response => response.json())
+.then(data => {
+console.log('Success:', data[0]['name']);
+
+name_field.innerHTML = `<option value = "" selected>--------------</option>`
+/*for(let i = 0; i<data.length; i++){
+  name_field.innerHTML += `<option value = `+data[i]["id"]+`>`+data[i]["name"]+`</option>`
+
+}*/
+data.forEach(function(item,index){
+  name_field.innerHTML += `<option value = `+item["id"]+`>`+item["name"]+`</option>`
+})
+})
+.catch((error) => {
+console.error('Error:', error);
+});
+
+    }
+
+    let input = document.getElementById("id_name")
+    let select = document.getElementsByTagName("select")
+    console.log(select)
+
+    input.classList.add("form-control")
+
+    for(let i = 0; i <select.length; i++){
+        select[i].classList.add("form-select")
+    }
+</script>
+
+{% endblock %}
+
+
+
+       
+

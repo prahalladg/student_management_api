@@ -1,0 +1,80 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+   home     
+{% endblock %}
+{% block content %}
+{% include 'slider.html' with sliderdata=slider %}
+{% load static %}
+
+  <marquee  direction="left" height="100px" style="background-color: darkgrey;
+  height: 60px;
+  padding-top: 19px;">
+  {% for m in notice %}{{ m.message }}{% endfor %}
+  </marquee>
+
+  <br>
+  <h2 class="text-center">WELCOME TO LITTLE ANGELS</h2>
+ <div class="jumbotron">
+  <p>The first biggest dream of Prahallad Gahir turned into a vibrant reality when Little Angels Public School, Barpali was formally inaugurated in 2010. 
+  
+  The school, affiliated to Central Board of Secondary Education (CBSE) has been able to provide a perfect blend of academics, sports, and co-curricular activities for all the students from Grades Nursery-XII since its inception.</p></div>
+
+  <img src="{% static 'image/schoolhome.jpeg' %}" class="img-fluid" alt="">
+
+  <!-- Remove the container if you want to extend the Footer to full width. -->
+<div class=" my-5">
+  <!-- Footer -->
+  <footer
+          class="text-center text-lg-start text-white"
+          style="background-color: #45526e"
+          >
+    <!-- Grid container -->
+    <div class="container p-4 pb-0">
+      <!-- Section: Links -->
+      <section class="">
+        <!--Grid row-->
+        <div class="row">
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+            <h6 class="text-uppercase mb-4 font-weight-bold">
+              Angels Academy
+            </h6>
+            <p>
+              Education To All........
+            </p>
+          </div>
+          <!-- Grid column -->
+
+          <hr class="w-100 clearfix d-md-none" />
+
+          
+
+          <hr class="w-100 clearfix d-md-none" />
+
+          
+          <hr class="w-100 clearfix d-md-none" />
+
+          <!-- Grid column -->
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+            <h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
+            <p><i class="fas fa-home mr-3"></i> Main road ,Barpali,Bargarh ,Odisha pin -768029</p>
+            <p><i class="fas fa-envelope mr-3"></i> info@laps.com</p>
+            <p><i class="fas fa-phone mr-3"></i> 8456538752</p>
+          </div>
+          <!-- Grid column -->
+        </div>
+        <!--Grid row-->
+      </section>
+      <!-- Section: Links -->
+
+      <hr class="my-3">
+
+      
+    </div>
+    <!-- Grid container -->
+  </footer>
+  <!-- Footer -->
+</div>
+<!-- End of .container -->
+{% endblock %}
